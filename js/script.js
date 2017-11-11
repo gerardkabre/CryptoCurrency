@@ -1,14 +1,39 @@
-var XHR = new XMLHttpRequest(); 
+var button = document.querySelector("#refresh"); 
+var price = document.querySelector("#price");
+var currency = "EUR";
 
-XHR.onreadystatechange = function () {
-    if (XHR.readyState == 4) {
-        if(XHR.status == 200) {
-            console.log(XHR.responseText);
-        } else {
-            console.log("There was a fucking problem.");
+button.addEventListener("click", priceRequest);
+
+
+function priceRequest(){
+
+    var XHR = new XMLHttpRequest();
+    XHR.onreadystatechange = function(){
+        if (XHR.readyState == 4 && XHR.status == 200 ) {
+            var data = JSON.parse(XHR.responseText); 
+            var currentEurPrice = data.bpi[currency].rate; 
+            price.textContent = currentEurPrice + " " + currency; 
         }
     }
+
+    XHR.open("GET", "https://api.coindesk.com/v1/bpi/currentprice.json");
+    XHR.send(); 
+
 }
 
-XHR.open("GET", "https://api.blockchain.info/charts/transactions-per-second?timespan=5weeks&rollingAverage=8hours&format=json");
-XHR.send();
+priceRequest();
+
+
+fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+.then(function(response){
+    console.log(response);
+    return response.json()
+  })
+  .then(function(data){
+    console.log(data.bpi.EUR.rate);
+});
+
+
+
+
+
