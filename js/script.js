@@ -1,4 +1,5 @@
 var button = document.querySelector("#refresh"); 
+
 var price = document.querySelector("#price");
 var currency = "EUR";
 
@@ -25,12 +26,13 @@ priceRequest();
 
 
 fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
-.then(function(response){
+.then((response) => {
     console.log(response);
-    return response.json()
+    return response.json() 
   })
-  .then(function(data){
-    console.log(data.bpi.EUR.rate);
+  .then((data) => {
+    var eurRate = data.bpi.EUR.rate;
+    console.log(eurRate);
 });
 
 
