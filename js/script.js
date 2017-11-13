@@ -2,6 +2,8 @@ var button = document.querySelector("#refresh");
 var price = document.querySelector("#price");
 var ctx = document.getElementById("myChart").getContext('2d');
 
+var min = document.getElementById("min");
+var max = document.getElementById("max");
 
 fetch("https://api.coinmarketcap.com/v1/ticker/")
 .then((response) => {
@@ -48,6 +50,28 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
             legend: {
                 display: false,
             },
+            animation: {
+                duration: 1,
+                onComplete: function () {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                        ctx.font = Chart.helpers.fontString(
+                        Chart.defaults.global.defaultFontSize, 
+                        Chart.defaults.global.defaultFontStyle, 
+                        Chart.defaults.global.defaultFontFamily
+                        );
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+        
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];                            
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+            },
             scales: {
                 xAxes: [{
                     stacked: false,
@@ -65,24 +89,25 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         }
     });
 
-    for(var i = 0; i < data.length; i++) {
-        if (data[i].price_usd > 10 && data[i].price_usd < 1000) {
-        myChart.data.datasets[0].data.push(data[i].price_usd); 
-        myChart.data.labels.push(data[i].id);
-        /*
-        myChart.data.datasets[0].backgroundColor.push('rgba(255, 146, 224, 0)'); 
-        myChart.data.datasets[0].borderColor.push('rgba(255, 146, 224, 0)'); 
-        */
+    var dataArr = myChart.data.datasets[0].data;
+    var labelArr = myChart.data.labels; 
 
+    for(var i = 0; i < data.length; i++) {
+        if (data[i].price_usd > 100 && data[i].price_usd < 10000) {
+        dataArr.push(data[i].price_usd); 
+        labelArr.push(data[i].id);
         myChart.update();
     }
+} 
 
-        
-           
-            
+    
+    max.addEventListener("change", function(){
+        var newarr =  dataArr.filter((x) => x.price_usd < 1000)
 
+        myChart.update();
 
-     }
+})
+
     
 });
 
