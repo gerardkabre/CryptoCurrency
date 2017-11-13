@@ -20,6 +20,9 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     var eurRate = bitcoin; 
     price.textContent = eurRate;
 
+    var gradientStroke = ctx.createLinearGradient(1000, 0, 100, 0);
+    gradientStroke.addColorStop(0, '#ff92e0');
+    gradientStroke.addColorStop(1, '#5AF5FA');
 
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -27,13 +30,16 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
             labels: [],
             datasets: [
                 {
-                    label: 'Price',
+                    label: '',
+                    borderColor: gradientStroke,
+                    pointBorderColor: gradientStroke,
+                    pointBackgroundColor: gradientStroke,
                     data: [],
-                    backgroundColor: 'rgba(90, 247, 250, 0.1)',
-                    borderColor: 'rgba(90, 247, 250, 1)',
-                        /*'rgba(90, 247, 250, 1)',
+                    /* backgroundColor: 'rgba(90, 247, 250, 0.1)',
+                       borderColor: 'rgba(90, 247, 250, 1)',
+                        'rgba(90, 247, 250, 1)',
                          *'rgba(255, 146, 224, 1)',
-                         */   
+                         */  
                     borderWidth: 1
                 }
             ]
@@ -60,7 +66,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     });
 
     for(var i = 0; i < data.length; i++) {
-        if (data[i].price_usd > 0 && data[i].price_usd < 10) {
+        if (data[i].price_usd > 10 && data[i].price_usd < 1000) {
         myChart.data.datasets[0].data.push(data[i].price_usd); 
         myChart.data.labels.push(data[i].id);
         /*
