@@ -85,6 +85,10 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     // Get an array of the prices and id's of each cryptocurrency.
     var prices = data.map( x => parseFloat(x.price_usd).toFixed(2));  
     var ids = data.map(x => x.id);
+
+    var dayChange = data.map(x => x.percent_change_24h)
+    var weekChange = data.map(x => x.percent_change_7d)
+
     // Default Data on start
     filterAndDisplayData(20, 10000);
     // Events for Data imput
@@ -100,39 +104,43 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     })
 
     
+    function filterAndDisplayData (min, max) {
+    //Filter the data of the array based one the price. 
+    var itemsToShow = prices.filter(x => x > min && x < max);  
+    /* we get an array with the items we want to show in the prices array
+    * so now we get the index of those items to be able to also get his 
+    * labels from the label array */ 
+    var itemsToShowIndex = itemsToShow.map(x => prices.indexOf(x)); 
+    /* We pass the values of our data to the arrays that will show the data of the chart. 
+    * "x" is the index we want to show from the arrays and update the chart */ 
+    myChart.data.datasets[0].data = itemsToShowIndex.map(x => prices[x]) 
+    myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
+    myChart.update();
 
-      function filterAndDisplayData (min, max) {
-      //Filter the data of the array based one the price. 
-      var itemsToShow = prices.filter(x => x > min && x < max);  
-      /* we get an array with the items we want to show in the prices array
-       * so now we get the index of those items to be able to also get his 
-       * labels from the label array */ 
-      var itemsToShowIndex = itemsToShow.map(x => prices.indexOf(x)); 
-      /* We pass the values of our data to the arrays that will show the data of the chart. 
-       * "x" is the index we want to show from the arrays and update the chart */ 
-      myChart.data.datasets[0].data = itemsToShowIndex.map(x => prices[x]) 
-      myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
-      myChart.update();
-
-      var data = myChart.data.datasets[0].data;
-      var labels = myChart.data.labels;
-      
-
-    //boxes under the chart
+     
+     // Create div's under the chart with individual crypto data
+     var data = myChart.data.datasets[0].data;
+     var labels = myChart.data.labels;
+     var dayChangeToShow = itemsToShowIndex.map(x => dayChange[x]) 
+     var weekChangeToShow = itemsToShowIndex.map(x => weekChange[x]) 
      individuals.innerHTML = "";   
+
       for (var i = 0; i < itemsToShow.length; i++) {
-        
+        //Create each individual div with it's inside content
         var individualDiv = document.createElement('div'); 
         individualDiv.classList.add("individual");
         individualDiv.innerHTML = ` 
         <div class="left"> ${labels[i]} </div> 
         <div class="right"> $${data[i]} </div> 
-        <div class="right"> $${data[i]} </div>         
-        <div class="right"> $${data[i]} </div>`; 
-
+        <div class="right daychange"> ${dayChangeToShow[i]}% </div>         
+        <div class="right weekchange"> ${weekChangeToShow[i]}% </div>`; 
         individuals.appendChild(individualDiv); 
 
-
+       // change color from % changes Positive or negative. 
+        var days = document.querySelectorAll(".daychange");
+        var weeks = document.querySelectorAll(".weekchange"); 
+        (dayChangeToShow[i] > 0) ? days[i].classList.add("positive") : days[i].classList.add("negative"); 
+        (weekChangeToShow[i] > 0) ? weeks[i].classList.add("positive") : weeks[i].classList.add("negative"); 
 
       }
       
