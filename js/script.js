@@ -11,7 +11,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
   })
   .then((data) => {
 
-/****************** BAR CHART *********************/
+/****************** CHART *********************/
 
     var gradientStroke = ctx.createLinearGradient(1000, 0, 100, 0);
     gradientStroke.addColorStop(0, '#ff92e0');
@@ -79,14 +79,14 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     }});
     
 /****************** FUNCTIONALITY *********************/
-    //Sort From Max to Min all the the data of the object based up on the price.
+    // Sort From Max to Min all the the data of the object based up on the price.
     data.sort(compare); 
-    //Get an array of the prices and id's of each cryptocurrency.
+    // Get an array of the prices and id's of each cryptocurrency.
     var prices = data.map( x => parseFloat(x.price_usd).toFixed(2));  
     var ids = data.map(x => x.id);
-    //Default Data
+    // Default Data
     filterAndDisplayData(20, 10000);
-
+    // Events for Data imput
     min.addEventListener("input", function () { 
         var minValue = parseFloat(this.value);
         var maxValue = parseFloat(max.value); 
@@ -97,7 +97,6 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         var maxValue = parseFloat(this.value);        
         filterAndDisplayData(minValue, maxValue); 
     })
-    
      //Compare function
      function compare(a,b) {
         if (parseFloat(a.price_usd) > parseFloat(b.price_usd))
@@ -120,13 +119,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
       myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
       myChart.update();
       }
-     
-
 })
-
- 
-//Añadir Barra para seleciconar el mínimo de precio con .filter() 
-//1 solo gráfico de barras con el precio de todas las cryptos mostradas en ese momento por el graph. 
 
 
 
