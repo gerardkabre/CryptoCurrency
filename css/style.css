@@ -26,7 +26,8 @@
 html,body{ 
   width:100%;
 	height:95%;
-  background: #010D18
+  background: #010D18;
+  font-family: Source Code Pro;
   /*background:#020031; */
   
 }
@@ -138,7 +139,7 @@ button:hover {
   margin-left: 10px;
 }
 .features .three {
-  flex-basis: 20%;  
+  flex-basis: 25%;  
   margin-left: 10px;
   
 }
@@ -153,12 +154,38 @@ button:hover {
 
 
   
-  /*------- LAYOUT COLOR   --------*/
-  
-
-
-
-#graph {
-  
+.min {
+  background-color: transparent;
+  color: #ff92e0;
+  border-color: #ff92e0;
+  padding: 10px 10px;
+  margin-top: 5px;
+  font-size: 16px;
   
 }
+.min:focus {
+  background-color: rgba(255, 146, 224, 0.10);
+  outline:0;
+}
+  
+
+  .max {
+
+    color: #5AF5FA;
+    background-color: transparent;
+    border: 1px solid #5AF5FA;
+    padding: 10px 10px;
+    font-size: 16px;
+  
+  }
+  .max:focus {
+    background-color: rgba(90, 247, 250, 0.10);
+    outline:0;
+  }
+
+
+  label { 
+    display: block;
+    font-size: 20px;
+    margin-top: 5px;
+  }

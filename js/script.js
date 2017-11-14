@@ -77,36 +77,51 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         },
         maintainAspectRatio: false        
     }});
-
+    
 /****************** FUNCTIONALITY *********************/
+    //Sort From Max to Min all the the data of the object based up on the price.
+    data.sort(compare); 
+    //Get an array of the prices and id's of each cryptocurrency.
+    var prices = data.map( x => parseFloat(x.price_usd).toFixed(2));  
+    var ids = data.map(x => x.id);
+    //Default Data
+    filterAndDisplayData(20, 10000);
 
-    //Compare Array of objects, based on the price of each object. 
-    function compare(a,b) {
+    min.addEventListener("input", function () { 
+        var minValue = parseFloat(this.value);
+        var maxValue = parseFloat(max.value); 
+        filterAndDisplayData(minValue, maxValue);
+      })
+    max.addEventListener("input", function () { 
+        var minValue = parseFloat(min.value); 
+        var maxValue = parseFloat(this.value);        
+        filterAndDisplayData(minValue, maxValue); 
+    })
+    
+     //Compare function
+     function compare(a,b) {
         if (parseFloat(a.price_usd) > parseFloat(b.price_usd))
           return -1;
           if (parseFloat(a.price_usd) < parseFloat(b.price_usd))
           return 1;
         return 0;
       }
-    //Sort From Max to Min all the the data of the object based up on the price.
-    data.sort(compare); 
-    //Get an array of the prices of each cryptocurrency.
-    var prices = data.map((x) => parseFloat(x.price_usd).toFixed(2));  //.toFixed(2) -> keep 2 decimals only 
-    //Get the an array with the id's of each cryptocurrency.
-    var ids = data.map((x) => x.id);
-    //Filter the data of the array based one the price. 
-    var itemsToShow = prices.filter((x) => x > 20 && x < 8000);  
-    /* we get an array with the items we want to show in the prices array
-     * so now we get the index of those items to be able to also get his 
-     * labels from the label array */ 
-    var itemsToShowIndex = itemsToShow.map((x) => prices.indexOf(x)); 
-    /* We pass the values of our data to the arrays that will show the data of the chart. 
-     * "x" is the index we want to show from the arrays. */ 
-    myChart.data.datasets[0].data = itemsToShowIndex.map((x) => prices[x]) 
-    myChart.data.labels = itemsToShowIndex.map((x) => ids[x]) .
+      
+      function filterAndDisplayData (min, max) {
+      //Filter the data of the array based one the price. 
+      var itemsToShow = prices.filter(x => x > min && x < max);  
+      /* we get an array with the items we want to show in the prices array
+       * so now we get the index of those items to be able to also get his 
+       * labels from the label array */ 
+      var itemsToShowIndex = itemsToShow.map(x => prices.indexOf(x)); 
+      /* We pass the values of our data to the arrays that will show the data of the chart. 
+       * "x" is the index we want to show from the arrays and update the chart */ 
+      myChart.data.datasets[0].data = itemsToShowIndex.map((x) => prices[x]) 
+      myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
+      myChart.update();
+      }
+     
 
-    myChart.update();
-   
 })
 
  
