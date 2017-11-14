@@ -77,6 +77,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         },
         maintainAspectRatio: false        
     }});
+/****************** FUNCTIONALITY *********************/
 
     //https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
     function compare(a,b) {
@@ -98,9 +99,10 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
      * so now we get the index of those items to be able to also get his 
      * labels from the label array */ 
     var itemsToShowIndex = itemsToShow.map((x) => prices.indexOf(x)); 
-    // We pass the values of our data to the arrays that will show the data of the chart. 
-        myChart.data.datasets[0].data = itemsToShowIndex.map((x) => prices[x]) // x is the index we want to show from the array prices.
-        myChart.data.labels = itemsToShowIndex.map((x) => ids[x]) // x is the index we want to show from the array ids.
+    /* We pass the values of our data to the arrays that will show the data of the chart. 
+     * "x" is the index we want to show from the arrays. */ 
+    myChart.data.datasets[0].data = itemsToShowIndex.map((x) => prices[x]) 
+    myChart.data.labels = itemsToShowIndex.map((x) => ids[x]) .
 
     myChart.update();
    
