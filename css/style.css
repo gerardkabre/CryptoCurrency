@@ -1,5 +1,5 @@
 /* =============================================================================
-   HTML5 CSS Reset Minified - Eric Meyer
+   HTML5 CSS Reset Minified 
    ========================================================================== */
    html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
    body{line-height:1}
@@ -241,3 +241,28 @@ button:hover {
   .negative {
     color: #EC5959;
   }
+
+
+.pre-individuals {
+   
+    display: flex;
+    margin: 0px auto;
+    width: 90%;
+    color:white;
+    flex-direction: column;
+    height: 60px;
+
+}
+.pre-individuals .individual div {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: transparent;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+  max-height: 30px;
+}
+.pre-individuals .individual {
+  border: none;
+  height: 100%;
+}

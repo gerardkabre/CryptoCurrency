@@ -142,7 +142,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         (dayChangeToShow[i] > 0) ? days[i].classList.add("positive") : days[i].classList.add("negative"); 
         (weekChangeToShow[i] > 0) ? weeks[i].classList.add("positive") : weeks[i].classList.add("negative"); 
 
-      }
+       }
       
 
       }
