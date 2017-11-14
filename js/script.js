@@ -77,9 +77,10 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         },
         maintainAspectRatio: false        
     }});
+
 /****************** FUNCTIONALITY *********************/
 
-    //https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
+    //Compare Array of objects, based on the price of each object. 
     function compare(a,b) {
         if (parseFloat(a.price_usd) > parseFloat(b.price_usd))
           return -1;
