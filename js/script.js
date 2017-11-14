@@ -1,18 +1,18 @@
 var button = document.querySelector("#refresh"); 
 var price = document.querySelector("#price");
 var ctx = document.getElementById("myChart").getContext('2d');
-
 var min = document.getElementById("min");
 var max = document.getElementById("max");
+
+var individuals = document.querySelector(".individuals");
+
 
 fetch("https://api.coinmarketcap.com/v1/ticker/")
 .then((response) => {
     return response.json() 
   })
   .then((data) => {
-
 /****************** CHART *********************/
-
     var gradientStroke = ctx.createLinearGradient(1000, 0, 100, 0);
     gradientStroke.addColorStop(0, '#ff92e0');
     gradientStroke.addColorStop(1, '#5AF5FA');
@@ -77,14 +77,15 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         },
         maintainAspectRatio: false        
     }});
-    
 /****************** FUNCTIONALITY *********************/
     // Sort From Max to Min all the the data of the object based up on the price.
-    data.sort(compare); 
+    data.sort((a,b) => 
+    (parseFloat(a.price_usd) > parseFloat(b.price_usd)) ? -1 : 
+    (parseFloat(a.price_usd) < parseFloat(b.price_usd)) ?  1 : 0); 
     // Get an array of the prices and id's of each cryptocurrency.
     var prices = data.map( x => parseFloat(x.price_usd).toFixed(2));  
     var ids = data.map(x => x.id);
-    // Default Data
+    // Default Data on start
     filterAndDisplayData(20, 10000);
     // Events for Data imput
     min.addEventListener("input", function () { 
@@ -97,15 +98,9 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         var maxValue = parseFloat(this.value);        
         filterAndDisplayData(minValue, maxValue); 
     })
-     //Compare function
-     function compare(a,b) {
-        if (parseFloat(a.price_usd) > parseFloat(b.price_usd))
-          return -1;
-          if (parseFloat(a.price_usd) < parseFloat(b.price_usd))
-          return 1;
-        return 0;
-      }
-      
+
+    
+
       function filterAndDisplayData (min, max) {
       //Filter the data of the array based one the price. 
       var itemsToShow = prices.filter(x => x > min && x < max);  
@@ -115,9 +110,33 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
       var itemsToShowIndex = itemsToShow.map(x => prices.indexOf(x)); 
       /* We pass the values of our data to the arrays that will show the data of the chart. 
        * "x" is the index we want to show from the arrays and update the chart */ 
-      myChart.data.datasets[0].data = itemsToShowIndex.map((x) => prices[x]) 
+      myChart.data.datasets[0].data = itemsToShowIndex.map(x => prices[x]) 
       myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
       myChart.update();
+
+      var data = myChart.data.datasets[0].data;
+      var labels = myChart.data.labels;
+      
+
+    //boxes under the chart
+     individuals.innerHTML = "";   
+      for (var i = 0; i < itemsToShow.length; i++) {
+        
+        var individualDiv = document.createElement('div'); 
+        individualDiv.classList.add("individual");
+        individualDiv.innerHTML = ` 
+        <div class="left"> ${labels[i]} </div> 
+        <div class="right"> $${data[i]} </div> 
+        <div class="right"> $${data[i]} </div>         
+        <div class="right"> $${data[i]} </div>`; 
+
+        individuals.appendChild(individualDiv); 
+
+
+
+      }
+      
+
       }
 })
 
