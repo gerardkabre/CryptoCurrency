@@ -1,11 +1,7 @@
-var button = document.querySelector("#refresh"); 
-var price = document.querySelector("#price");
-var ctx = document.getElementById("myChart").getContext('2d');
 var min = document.getElementById("min");
 var max = document.getElementById("max");
-
 var individuals = document.querySelector(".individuals");
-
+var ctx = document.getElementById("myChart").getContext('2d');
 
 fetch("https://api.coinmarketcap.com/v1/ticker/")
 .then((response) => {
@@ -102,7 +98,6 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         var maxValue = parseFloat(this.value);        
         filterAndDisplayData(minValue, maxValue); 
     })
-
     
     function filterAndDisplayData (min, max) {
     //Filter the data of the array based one the price. 
@@ -117,7 +112,6 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
     myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
     myChart.update();
 
-     
      // Create div's under the chart with individual crypto data
      var data = myChart.data.datasets[0].data;
      var labels = myChart.data.labels;
@@ -141,10 +135,7 @@ fetch("https://api.coinmarketcap.com/v1/ticker/")
         var weeks = document.querySelectorAll(".weekchange"); 
         (dayChangeToShow[i] > 0) ? days[i].classList.add("positive") : days[i].classList.add("negative"); 
         (weekChangeToShow[i] > 0) ? weeks[i].classList.add("positive") : weeks[i].classList.add("negative"); 
-
        }
-      
-
       }
 })
 
