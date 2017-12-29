@@ -322,9 +322,6 @@ label {
   justify-content: space-around;
   align-items: stretch;
 }
-.individual:last-child {
-  margin-bottom: 60px;
-}
 
 .left {
   flex-basis: 33%;
@@ -369,4 +366,10 @@ label {
 .pre-individuals .individual {
   border: none;
   height: 100%;
+}
+
+footer {
+  color: white;
+  padding: 80px;
+  text-align: center;
 }
