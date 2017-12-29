@@ -10,18 +10,11 @@ class App {
     this.individualsContainer = document.querySelector(".individualsContainer");
   }
   addEvents() {
-    this.min.addEventListener("input", this.minEventHandler.bind(this));
-    this.max.addEventListener("input", this.maxEventHandler.bind(this));
+    this.min.addEventListener("input", this.eventHandler.bind(this));
+    this.max.addEventListener("input", this.eventHandler.bind(this));
   }
-  minEventHandler(event) {
-    var minValue = parseFloat(event.target.value);
-    var maxValue = parseFloat(this.max.value);
-    this.filterData(minValue, maxValue);
-  }
-  maxEventHandler(event) {
-    var minValue = parseFloat(min.value);
-    var maxValue = parseFloat(event.target.value);
-    this.filterData(minValue, maxValue);
+  eventHandler() {
+    this.filterData(this.min.value, this.max.value);
   }
   getData() {
     fetch("https://api.coinmarketcap.com/v1/ticker/")
