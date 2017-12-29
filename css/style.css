@@ -1,21 +1,153 @@
 /* =============================================================================
    HTML5 CSS Reset Minified 
    ========================================================================== */
-   html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
-   body{line-height:1}
-   article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
-   nav ul{list-style:none}
-   blockquote,q{quotes:none}
-   blockquote:before,blockquote:after,q:before,q:after{content:none}
-   a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;text-decoration:none}
-   mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
-   del{text-decoration:line-through}
-   abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
-   table{border-collapse:collapse;border-spacing:0}
-   hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
-   input,select{vertical-align:middle}
-   li{list-style:none}
-
+html,
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+abbr,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+samp,
+small,
+strong,
+sub,
+sup,
+var,
+b,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: none;
+}
+a {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  text-decoration: none;
+}
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+del {
+  text-decoration: line-through;
+}
+abbr[title],
+dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+input,
+select {
+  vertical-align: middle;
+}
+li {
+  list-style: none;
+}
 
 /* =============================================================================
    My CSS
@@ -23,33 +155,29 @@
 
 /* ---- base ---- */
 
-html,body{ 
-  width:100%;
-	height:95%;
-  background: #010D18;
+html,
+body {
+  width: 100%;
+  height: 95%;
+  background: #010d18;
   font-family: Source Code Pro;
   /*background:#020031; */
-  
 }
 
-html{
+html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  
 }
 
-
-canvas{
-  display:block;
+canvas {
+  display: block;
   max-width: 100%;
   max-height: 100%;
 }
 
-
-
 /* ---- particles.js container ---- */
 
-.container{
-  position:relative;
+.container {
+  position: relative;
   height: 50%;
   width: 100%;
   display: flex;
@@ -58,51 +186,47 @@ canvas{
   align-items: center;
 }
 
-#particles-js{
+#particles-js {
   width: 90vw;
   height: 110%;
   position: absolute;
 }
 .hero {
-    
-    position: absolute;
-    
+  position: absolute;
 }
 
 h2 {
-  color:#61ECEE;
+  color: #61ecee;
   font-family: Raleway;
   font-weight: extra-light;
   font-size: 4em;
-  
 }
 
 .features h2 {
-    color:#ff92e0;
-    font-family: Raleway;
-    font-weight: extra-light;
-    font-size: 3.2em;
+  color: #ff92e0;
+  font-family: Raleway;
+  font-weight: extra-light;
+  font-size: 3.2em;
 }
 
 h3 {
-  color:#fff;
+  color: #fff;
   font-family: Source Code Pro;
   font-size: 20px;
-  
 }
 
 button {
   min-width: 200px;
-  color: #5AF5FA;
+  color: #5af5fa;
   background-color: transparent;
-  border: 1px solid #5AF5FA;
+  border: 1px solid #5af5fa;
   padding: 14px 28px;
   font-size: 12px;
   border-radius: 0px;
   font-family: Raleway;
   letter-spacing: 2px;
   box-shadow: none;
-  font-family: Raleway;  
+  font-family: Raleway;
   margin-left: 30px;
   margin: 10px;
   max-height: 100px;
@@ -116,44 +240,38 @@ button {
 
 button:hover {
   color: #ff92e0;
-  background-color: rgba(255,146,224,0.2);
+  background-color: rgba(255, 146, 224, 0.2);
 }
 
-
 .features {
-  color:white;
-  display:flex;
+  color: white;
+  display: flex;
   flex-basis: 400px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   /*------- LAYOUT COLOR   --------*/
-
 }
 .features .one {
-  flex-basis: 10%;  
-  
+  flex-basis: 10%;
 }
 .features .twoo {
-  flex-basis:30%;
+  flex-basis: 30%;
   margin-left: 10px;
 }
 .features .three {
-  flex-basis: 35%;  
+  flex-basis: 35%;
   margin-left: 10px;
-  
 }
 
 .features2 {
-  color:white;
-  display:flex;
+  color: white;
+  display: flex;
   padding: 20px 20px;
   max-width: 90%;
   margin: 0px auto;
-}  
+}
 
-
-  
 .min {
   background-color: transparent;
   color: #ff92e0;
@@ -162,96 +280,82 @@ button:hover {
   margin-top: 5px;
   font-size: 16px;
   text-align: center;
-  
 }
 .min:focus {
-  background-color: rgba(255, 146, 224, 0.10);
-  outline:0;
+  background-color: rgba(255, 146, 224, 0.1);
+  outline: 0;
 }
-  
 
-  .max {
+.max {
+  color: #5af5fa;
+  background-color: transparent;
+  border: 1px solid #5af5fa;
+  padding: 10px 10px;
+  font-size: 16px;
+  text-align: center;
+}
+.max:focus {
+  background-color: rgba(90, 247, 250, 0.1);
+  outline: 0;
+}
 
-    color: #5AF5FA;
-    background-color: transparent;
-    border: 1px solid #5AF5FA;
-    padding: 10px 10px;
-    font-size: 16px;
-    text-align: center;
-  
-  }
-  .max:focus {
-    background-color: rgba(90, 247, 250, 0.10);
-    outline:0;
-  }
+label {
+  display: block;
+  font-size: 20px;
+  margin-top: 5px;
+}
 
+.individualsContainer {
+  display: flex;
+  margin: 0px auto;
+  width: 90%;
+  color: white;
+  flex-direction: column;
+}
 
-  label { 
-    display: block;
-    font-size: 20px;
-    margin-top: 5px;
-  }
-  
-  .individuals {
-    
-    display: flex;
-    margin: 0px auto;
-    width: 90%;
-    color:white;
-    flex-direction: column;
-  }
+.individual {
+  min-height: 90px;
+  border: 1px solid #fff;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.individual:last-child {
+  margin-bottom: 60px;
+}
 
-  .individual {
-    
-    min-height: 90px;
-    border: 1px solid #fff; 
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    align-items: stretch;
-  }
-  .individual:last-child {
-    margin-bottom: 60px;
-  }
+.left {
+  flex-basis: 33%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
-  
+.right {
+  flex-basis: 23%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .left {
-    flex-basis: 33%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-
-
-  .right {
-    flex-basis: 23%;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-  }
-
-  .positive {
-    color: rgba(28, 253, 43, 0.81);
-  }
-  .negative {
-    color: #EC5959;
-  }
-
+.positive {
+  color: rgba(28, 253, 43, 0.81);
+}
+.negative {
+  color: #ec5959;
+}
 
 .pre-individuals {
-   
-    display: flex;
-    margin: 0px auto;
-    width: 90%;
-    color:white;
-    flex-direction: column;
-    height: 60px;
-
+  display: flex;
+  margin: 0px auto;
+  width: 90%;
+  color: white;
+  flex-direction: column;
+  height: 60px;
 }
 .pre-individuals .individual div {
   color: rgba(255, 255, 255, 0.9);
