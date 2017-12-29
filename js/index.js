@@ -14,7 +14,7 @@ class App {
     this.max.addEventListener("input", this.eventHandler.bind(this));
   }
   eventHandler() {
-    this.filterData(this.min.value, this.max.value);
+    this.filterData(parseFloat(this.min.value), parseFloat(this.max.value));
   }
   getData() {
     fetch("https://api.coinmarketcap.com/v1/ticker/")
