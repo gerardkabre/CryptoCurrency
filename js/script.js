@@ -18,7 +18,7 @@ class App {
     var maxValue = parseFloat(this.max.value);
     this.filterData(minValue, maxValue);
   }
-  maxEventHandler() {
+  maxEventHandler(event) {
     var minValue = parseFloat(min.value);
     var maxValue = parseFloat(event.target.value);
     this.filterData(minValue, maxValue);
@@ -33,13 +33,15 @@ class App {
     this.filteredItems = this.data.filter(x => x.price_usd > min && x.price_usd < max)
     .sort((a, b) => parseFloat(a.price_usd) > parseFloat(b.price_usd) ? -1
     : parseFloat(a.price_usd) < parseFloat(b.price_usd) ? 1 : 0);
-
+    this.displayChartData();
+    this.displayGridData();
+  }
+  displayChartData() {
     myChart.data.datasets[0].data = this.filteredItems.map(x => parseFloat(x.price_usd).toFixed(2));
     myChart.data.labels = this.filteredItems.map(x => x.id);
     myChart.update();
-    this.displayData();
   }
-  displayData() {
+  displayGridData() {
     this.individualsContainer.innerHTML = "";
     this.filteredItems.map(x => {
       var individualDiv = document.createElement("div");
@@ -57,5 +59,4 @@ class App {
     })
   }
 }
-
 const app = new App();
