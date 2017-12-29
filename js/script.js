@@ -1,143 +1,56 @@
-var min = document.getElementById("min");
-var max = document.getElementById("max");
-var individuals = document.querySelector(".individuals");
-var ctx = document.getElementById("myChart").getContext('2d');
-
-fetch("https://api.coinmarketcap.com/v1/ticker/")
-.then((response) => {
-    return response.json() 
-  })
-  .then((data) => {
-/****************** CHART *********************/
-    var gradientStroke = ctx.createLinearGradient(1000, 0, 100, 0);
-    gradientStroke.addColorStop(0, '#ff92e0');
-    gradientStroke.addColorStop(1, '#5AF5FA');
-
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [
-                {
-                    label: '',
-                    backgroundColor: 'rgba(90, 247, 250, 0.1)',
-                    borderColor: gradientStroke,
-                    pointBorderColor: gradientStroke,
-                    pointBackgroundColor: gradientStroke,
-                    data: [],
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            legend: {
-                display: false,
-            },
-            tooltips: {
-                enabled: true
-            },
-            hover: {
-                animationDuration: 1
-            },
-            animation: {
-                duration: 1,
-                onComplete: function () {
-                    var chartInstance = this.chart,
-                        ctx = chartInstance.ctx;
-                    ctx.textAlign = 'center';
-                    ctx.fillStyle = gradientStroke;
-                    ctx.textBaseline = 'bottom';
-                    
-                    this.data.datasets.forEach(function (dataset, i) {
-                        var meta = chartInstance.controller.getDatasetMeta(i);
-                        meta.data.forEach(function (bar, index) {
-                            var data = dataset.data[index];
-                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
-                        });
-                    });
-                }
-        },
-        scales: {
-            xAxes: [{
-                stacked: false,
-                beginAtZero: true,
-                scaleLabel: {
-                    labelString: 'Month'
-                },
-                ticks: {
-                    stepSize: 1,
-                    min: 0,
-                    autoSkip: false
-                }
-            }]
-        },
-        maintainAspectRatio: false        
-    }});
-/****************** FUNCTIONALITY *********************/
-    // Sort From Max to Min all the the data of the object based up on the price.
-    data.sort((a,b) => 
-    (parseFloat(a.price_usd) > parseFloat(b.price_usd)) ? -1 : 
-    (parseFloat(a.price_usd) < parseFloat(b.price_usd)) ?  1 : 0); 
-    // Get an array of the prices and id's of each cryptocurrency.
-    var prices = data.map( x => parseFloat(x.price_usd).toFixed(2));  
-    var ids = data.map(x => x.id);
-
-    var dayChange = data.map(x => x.percent_change_24h)
-    var weekChange = data.map(x => x.percent_change_7d)
-
-    // Default Data on start
-    filterAndDisplayData(20, 10000);
-    // Events for Data imput
-    min.addEventListener("input", function () { 
-        var minValue = parseFloat(this.value);
-        var maxValue = parseFloat(max.value); 
-        filterAndDisplayData(minValue, maxValue);
-      })
-    max.addEventListener("input", function () { 
-        var minValue = parseFloat(min.value); 
-        var maxValue = parseFloat(this.value);        
-        filterAndDisplayData(minValue, maxValue); 
-    })
-    
-    function filterAndDisplayData (min, max) {
-    //Filter the data of the array based one the price. 
-    var itemsToShow = prices.filter(x => x > min && x < max);  
-    /* we get an array with the items we want to show in the prices array
-    * so now we get the index of those items to be able to also get his 
-    * labels from the label array */ 
-    var itemsToShowIndex = itemsToShow.map(x => prices.indexOf(x)); 
-    /* We pass the values of our data to the arrays that will show the data of the chart. 
-    * "x" is the index we want to show from the arrays and update the chart */ 
-    myChart.data.datasets[0].data = itemsToShowIndex.map(x => prices[x]) 
-    myChart.data.labels = itemsToShowIndex.map(x => ids[x]) 
+class App {
+  constructor() {
+    this.getElements();
+    this.addEvents();
+    this.getData();
+  }
+  getElements() {
+    this.min = document.getElementById("min");
+    this.max = document.getElementById("max");
+    this.individualsContainer = document.querySelector(".individualsContainer");
+  }
+  addEvents() {
+    this.min.addEventListener("input", this.eventHandler.bind(this));
+    this.max.addEventListener("input", this.eventHandler.bind(this));
+  }
+  eventHandler() {
+    this.filterData(this.min.value, this.max.value);
+  }
+  getData() {
+    fetch("https://api.coinmarketcap.com/v1/ticker/")
+      .then(response => response.json())
+      .then(data => (this.data = data))
+      .then(data => this.filterData(20, 20000));
+  }
+  filterData(min, max) {
+    this.filteredItems = this.data.filter(x => x.price_usd > min && x.price_usd < max)
+    .sort((a, b) => parseFloat(a.price_usd) > parseFloat(b.price_usd) ? -1
+    : parseFloat(a.price_usd) < parseFloat(b.price_usd) ? 1 : 0);
+    this.displayChartData();
+    this.displayGridData();
+  }
+  displayChartData() {
+    myChart.data.datasets[0].data = this.filteredItems.map(x => parseFloat(x.price_usd).toFixed(2));
+    myChart.data.labels = this.filteredItems.map(x => x.id);
     myChart.update();
-
-     // Create div's under the chart with individual crypto data
-     var data = myChart.data.datasets[0].data;
-     var labels = myChart.data.labels;
-     var dayChangeToShow = itemsToShowIndex.map(x => dayChange[x]) 
-     var weekChangeToShow = itemsToShowIndex.map(x => weekChange[x]) 
-     individuals.innerHTML = "";   
-
-      for (var i = 0; i < itemsToShow.length; i++) {
-        //Create each individual div with it's inside content
-        var individualDiv = document.createElement('div'); 
-        individualDiv.classList.add("individual");
-        individualDiv.innerHTML = ` 
-        <div class="left"> ${labels[i]} </div> 
-        <div class="right"> $${data[i]} </div> 
-        <div class="right daychange"> ${dayChangeToShow[i]}% </div>         
-        <div class="right weekchange"> ${weekChangeToShow[i]}% </div>`; 
-        individuals.appendChild(individualDiv); 
-
-       // change color from % changes Positive or negative. 
-        var days = document.querySelectorAll(".daychange");
-        var weeks = document.querySelectorAll(".weekchange"); 
-        (dayChangeToShow[i] > 0) ? days[i].classList.add("positive") : days[i].classList.add("negative"); 
-        (weekChangeToShow[i] > 0) ? weeks[i].classList.add("positive") : weeks[i].classList.add("negative"); 
-       }
-      }
-})
-
-
-
+  }
+  displayGridData() {
+    this.individualsContainer.innerHTML = "";
+    this.filteredItems.map(x => {
+      let div = document.createElement("div");
+      div.innerHTML = ` 
+        <div class="individual">
+            <div class="left"> ${x.id}</div> 
+            <div class="right"> $${x.price_usd}</div> 
+            <div class="right ${x.percent_change_24h > 0 ? "positive" : "negative"}"> 
+                ${x.percent_change_24h}% 
+            </div>         
+            <div class="right ${x.percent_change_7d > 0 ? "positive" : "negative"} "> 
+                ${x.percent_change_7d}% 
+            </div>
+        </div>`;
+      this.individualsContainer.appendChild(div);
+    })
+  }
+}
+const app = new App();
