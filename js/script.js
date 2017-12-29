@@ -37,18 +37,19 @@ class App {
   displayGridData() {
     this.individualsContainer.innerHTML = "";
     this.filteredItems.map(x => {
-      var individualDiv = document.createElement("div");
-      individualDiv.classList.add("individual");
-      individualDiv.innerHTML = ` 
-        <div class="left"> ${x.id}</div> 
-        <div class="right"> $${x.price_usd}</div> 
-        <div class="right ${x.percent_change_24h > 0 ? "positive" : "negative"}"> 
-            ${x.percent_change_24h}% 
-        </div>         
-        <div class="right ${x.percent_change_7d > 0 ? "positive" : "negative"} "> 
-            ${x.percent_change_7d}% 
+      let div = document.createElement("div");
+      div.innerHTML = ` 
+        <div class="individual">
+            <div class="left"> ${x.id}</div> 
+            <div class="right"> $${x.price_usd}</div> 
+            <div class="right ${x.percent_change_24h > 0 ? "positive" : "negative"}"> 
+                ${x.percent_change_24h}% 
+            </div>         
+            <div class="right ${x.percent_change_7d > 0 ? "positive" : "negative"} "> 
+                ${x.percent_change_7d}% 
+            </div>
         </div>`;
-      this.individualsContainer.appendChild(individualDiv);
+      this.individualsContainer.appendChild(div);
     })
   }
 }
