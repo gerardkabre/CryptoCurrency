@@ -1,3 +1,3 @@
 # CryptoCurrency
 
- https://gerardkabre.github.io/CryptoCurrency/.
+ https://gerardkabre.github.io/CryptoCurrency/
